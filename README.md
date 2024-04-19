@@ -75,3 +75,21 @@ Now we can use `poetry build` and `poetry publish` to publish package, but we wi
     pip install happycow
     happycow
     ```
+
+Note: I you notice that the Github Releases contains something like:
+
+```
+*.tag.gz{.crt,.sig,sigstore}
+*.whl{.crt,.sig,sigstore}
+```
+
+you can do this replace: [ref](https://github.com/python-poetry/poetry/blob/main/.github/workflows/release.yaml)
+
+```
+gh release upload '${{ github.ref_name }}' dist/** --repo '${{ github.repository }}'`
+
+# replace to
+
+gh release upload '${{ github.ref_name }}' dist/*.{tar.gz,whl}
+ --repo '${{ github.repository }}'`
+```
